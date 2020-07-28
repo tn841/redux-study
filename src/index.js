@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 const plus = document.getElementById("plus");
 const minus = document.getElementById("minus");
 const number = document.querySelector("span");
+number.innerText = 0;
 
 const countModifier = (state=0, action) => {
   // reducer function
@@ -16,14 +17,14 @@ const countModifier = (state=0, action) => {
   return state;
 };
 const countStore = createStore(countModifier);  //create store
-console.log(countStore.getState())
 
+const onChange = () => {
+  number.innerText = countStore.getState();
+  console.log(countStore.getState());
 
-// store의 dispatch 메소드를 통해
-// 상태를 변경 할 수 있다.
-countStore.dispatch({type: 'PLUS'})  
-countStore.dispatch({type: 'PLUS'})  
-countStore.dispatch({type: 'PLUS'})  
-countStore.dispatch({type: 'PLUS'})  
-countStore.dispatch({type: 'MINUS'})  
-console.log(countStore.getState())
+}
+countStore.subscribe(onChange)
+
+plus.addEventListener('click', () => countStore.dispatch({type: 'PLUS'}))
+minus.addEventListener('click', () => countStore.dispatch({type: 'MINUS'}))
+
