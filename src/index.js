@@ -9,13 +9,18 @@ const ul = document.querySelector('ul');
 const ADD_TODO = "ADD_TODO";
 const DELETE_TODO = "DELETE_TODO";
 
-const dispatchAddToDo = (id) => {
+const dispatchAddToDo = (text) => {
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
+const dispatchDeleteToDo = (id) => {
   return {
     type: DELETE_TODO,
     id
   }
 }
-const dispatchDeleteToDo = ()
 
 const reducer = (state=[], action) => {
   // NEVER NUTATE STATE!!
@@ -24,7 +29,7 @@ const reducer = (state=[], action) => {
     case ADD_TODO:
       return [{text: action.text, id: Date.now()}, ...state];
     case DELETE_TODO:
-      return [];
+      return state.filter( todo => todo.id !== parseInt(action.id) )
     default:
       return state;
   }
