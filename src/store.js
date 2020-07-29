@@ -1,20 +1,28 @@
 import { createStore } from 'redux';
-import { createAction } from '@reduxjs/toolkit'
+import { createAction, createReducer } from '@reduxjs/toolkit'
 
 
 const addTodo = createAction("ADD");
 const deleteTodo = createAction("DELETE");
 
-const reducer = (state=[], action) => {
-    switch (action.type) {
-        case addTodo.type:
-            return [ {text: action.payload, id: Date.now()}, ...state]
-        case deleteTodo.type:
-            return state.filter( todo => todo.id !== action.payload );
-        default :
-            return state;
-    }
-}
+// const reducer = (state=[], action) => {
+//     switch (action.type) {
+//         case addTodo.type:
+//             return [ {text: action.payload, id: Date.now()}, ...state]
+//         case deleteTodo.type:
+//             return state.filter( todo => todo.id !== action.payload );
+//         default :
+//             return state;
+//     }
+// }
+
+const reducer = createReducer([], {
+    [addTodo] : (state, action) => {
+        state.push({text: action.payload, id: Date.now()})
+    }, // state를 mutate 하고 아무것도 return 하지 않거나
+    [deleteTodo]: (state, action) => state.filter( todo => todo.id !== action.payload )
+        // state를 immutate하고 새로운 state를 return 한다.
+})
 const store = createStore(reducer);
 
 store.subscribe( () => {
