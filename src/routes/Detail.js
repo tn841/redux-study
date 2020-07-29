@@ -1,33 +1,12 @@
-import React, { useState } from 'react';
-import store, { addTodo } from '../store';
+import React from 'react';
 
-function Home(){
-    const [text, settext] = useState("") //hooks
-
-    function onChange(e) {
-        settext(e.target.value)
-    }
-
-    function onSubmit(e) {
-        e.preventDefault();
-        console.log(text);
-        settext("")
-        store.dispatch(addTodo(text))
-    }
-
+function Detail(){
     return (
-        <>
-            <h1>To Do</h1>
-            <form onSubmit={onSubmit}>
-                <input type="text" value={text} onChange={onChange}/>
-                <button onClick={onsubmit}> submit</button>
-            </form>
-            <ul>
-
-            </ul>
-        </>
+        <div>
+            Detail
+        </div>
     )
 }
 
-export default Home;
+export default Detail;
 
