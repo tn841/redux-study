@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import store, { addTodo } from '../store';
 
 function Home(){
     const [text, settext] = useState("") //hooks
@@ -11,6 +12,7 @@ function Home(){
         e.preventDefault();
         console.log(text);
         settext("")
+        store.dispatch(addTodo(text))
     }
 
     return (
