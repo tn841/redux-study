@@ -3,14 +3,14 @@ import { createStore } from 'redux';
 const ADD = "ADD";
 const DELETE = "DELETE";
 
-export const addTodo = (text) => {
+const addTodo = (text) => {
     return {
         type: ADD,
         text
     }
 }
 
-export const deleteTodo = (id) => {
+const deleteTodo = (id) => {
     return {
         type: DELETE,
         id
@@ -18,7 +18,6 @@ export const deleteTodo = (id) => {
 }
 
 const reducer = (state=[], action) => {
-    console.log(state, action)
     switch (action.type) {
         case ADD:
             return [ {text: action.text, id: Date.now()}, ...state]
@@ -39,5 +38,10 @@ store.subscribe( () => {
     // react와 redux store를 연결시키는 작업은 
     // index.js에서 <Provider/>를 통해 이루어진다.
 })
+
+export const actionCreators = {
+    addTodo,
+    deleteTodo
+}
 
 export default store;
